@@ -1,0 +1,33 @@
+{
+  "name": "mecha-meemee",
+  "version": "0.5.0",
+  "description": "a discord/twitch bot for everything super monkey ball!",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fmt": "npx prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rehtropsmb/mecha-meemee.git"
+  },
+  "author": "rehtrop",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rehtropsmb/mecha-meemee/issues"
+  },
+  "homepage": "https://github.com/rehtropsmb/mecha-meemee#readme",
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "inversify": "^6.0.2",
+    "node-schedule": "^2.1.1",
+    "reflect-metadata": "^0.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
