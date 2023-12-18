@@ -16,8 +16,8 @@ export class EliteService {
         this.discordClient = discordClient;
 
         // set-up records which were already posted
-        // const body: any[] = await this.getRecent();
-        // this.curr_records = body.map((value) => value.id);
+        const body: any[] = await this.getRecent();
+        this.curr_records = body.map((value) => value.id);
 
         const schedule = require('node-schedule');
         schedule.scheduleJob('*/1 * * * *', async () => {
