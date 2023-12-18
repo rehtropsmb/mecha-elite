@@ -13,7 +13,7 @@ export interface BoardSubmission {
     report: any;
     submitted_at: any;
     tas: boolean;
-};
+}
 
 export interface RecentSubmission {
     all_position: number;
@@ -25,26 +25,26 @@ export interface RecentSubmission {
     tas: boolean;
     level: EliteLevel;
     profile: EliteProfile;
-};
+}
 
 export interface EliteLevel {
     category: string;
     name: string;
     timer_type: string;
     mode: EliteMode;
-};
+}
 
 export interface EliteMode {
     game: EliteGame;
-};
+}
 
 export interface EliteGame {
     name: string;
     abb: string;
-};
+}
 
 export interface EliteProfile {
     country: string;
     id: number;
     username: string;
-};
+}

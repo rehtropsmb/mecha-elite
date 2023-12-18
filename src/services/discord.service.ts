@@ -1,10 +1,6 @@
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
-import {
-    Client,
-    Events,
-    IntentsBitField,
-} from 'discord.js';
+import { Client, Events, IntentsBitField } from 'discord.js';
 import { EnvService } from './env.service';
 import { EliteService } from './elite.service';
 
@@ -14,7 +10,7 @@ export class DiscordService {
     private eliteService: EliteService;
     constructor(
         @inject(EnvService) envService,
-        @inject(EliteService) eliteService,
+        @inject(EliteService) eliteService
     ) {
         this.envService = envService;
         this.eliteService = eliteService;
