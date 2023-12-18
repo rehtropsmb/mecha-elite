@@ -16,8 +16,8 @@ export class EliteService {
         this.discordClient = discordClient;
 
         // set-up records which were already posted
-        const body: any[] = await this.getRecent();
-        this.curr_records = body.map((value) => value.id);
+        // const body: any[] = await this.getRecent();
+        // this.curr_records = body.map((value) => value.id);
 
         const schedule = require('node-schedule');
         schedule.scheduleJob('*/1 * * * *', async () => {
@@ -58,11 +58,16 @@ export class EliteService {
                     } else {
                         break;
                     }
-                    const channel = discordClient.channels.cache.get(
-                        '1186065103880192084'
-                    ) as TextChannel;
+                    const abb = upload.level.mode.game.abb;
+                    let channelId;
+                    if (abb == 'smb1' || abb == 'smb2' || abb == 'smb2pal' || abb == 'smbdx' || abb == 'bm') {
+                        channelId = '1186065103880192084'
+                    } else {
+                        channelId = '1186439697942192190';
+                    }
+                    const channel = discordClient.channels.cache.get(channelId) as TextChannel;
                     channel.send(
-                        `**${this.stringToName(upload.level.name)}**\n**${
+                        `**${upload.level.mode.game.name}**\n${this.stringToName(upload.level.name)}\n**${
                             upload.score
                                 ? upload.record
                                 : Math.abs(upload.record).toFixed(2)
@@ -70,7 +75,7 @@ export class EliteService {
                             upload.profile.username
                         }](<https://www.smbelite.net/user/${
                             upload.profile.id
-                        }>)\n**${medal}** on [SMB Elite](<https://smbelite.net/games/${
+                        }>) | **${medal}** on [SMB Elite](<https://smbelite.net/games/${
                             upload.level.mode.game.abb
                         }/${upload.level.category}/${
                             upload.score ? 'score' : 'time'
@@ -85,8 +90,9 @@ export class EliteService {
     }
 
     private async getRecent(): Promise<RecentSubmission[]> {
+        const submissionCount = 10;
         const response = await fetch(
-            'https://dtexopnygapvstzdhwai.supabase.co/rest/v1/submission?select=all_position%2Cid%2Clevel%28category%2Cmode%28game%28abb%2Cname%29%29%2Cname%2Ctimer_type%29%2Cposition%2Cprofile%28country%2Cid%2Cusername%29%2Cproof%2Crecord%2Cscore%2Ctas&offset=0&limit=10&order=id.desc',
+            `https://dtexopnygapvstzdhwai.supabase.co/rest/v1/submission?select=all_position%2Cid%2Clevel%28category%2Cmode%28game%28abb%2Cname%29%29%2Cname%2Ctimer_type%29%2Cposition%2Cprofile%28country%2Cid%2Cusername%29%2Cproof%2Crecord%2Cscore%2Ctas&offset=0&limit=${submissionCount}&order=id.desc`,
             {
                 method: 'GET',
                 headers: {
