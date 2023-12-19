@@ -82,11 +82,11 @@ export class EliteService {
                     channel.send(
                         `**${
                             upload.level.mode.game.name
-                        }**\n${this.stringToName(upload.level.name)}\n**${
+                        }**\n${this.stringToName(upload.level.name)}\n**[${
                             upload.score
                                 ? upload.record
                                 : Math.abs(upload.record).toFixed(2)
-                        }** by [${
+                        }](${upload.proof})** by [${
                             upload.profile.username
                         }](<https://www.smbelite.net/user/${
                             upload.profile.id
@@ -94,7 +94,7 @@ export class EliteService {
                             upload.level.mode.game.abb
                         }/${upload.level.category}/${
                             upload.score ? 'score' : 'time'
-                        }/${upload.level.name}>)\n${upload.proof}`
+                        }/${upload.level.name}>)`
                     );
                     break;
                 }
