@@ -1,7 +1,7 @@
 {
-  "name": "mecha-meemee",
-  "version": "0.5.0",
-  "description": "a discord/twitch bot for everything super monkey ball!",
+  "name": "mecha-elite",
+  "version": "1.0.0",
+  "description": "automated record posting in the SMB Elite discord server",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rehtropsmb/mecha-meemee.git"
+    "url": "git+https://github.com/rehtropsmb/mecha-elite.git"
   },
   "author": "rehtrop",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rehtropsmb/mecha-meemee/issues"
+    "url": "https://github.com/rehtropsmb/mecha-elite/issues"
   },
-  "homepage": "https://github.com/rehtropsmb/mecha-meemee#readme",
+  "homepage": "https://github.com/rehtropsmb/mecha-elite#readme",
   "devDependencies": {
     "prettier": "^3.1.1"
   },

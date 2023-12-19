@@ -15,10 +15,11 @@ export class EliteService {
     public async init(discordClient: Client) {
         this.discordClient = discordClient;
 
-        // set-up records which were already posted
+        // set up records which were already posted
         const body: any[] = await this.getRecent();
         this.curr_records = body.map((value) => value.id);
 
+        // create scheduled event
         const schedule = require('node-schedule');
         schedule.scheduleJob('*/1 * * * *', async () => {
             const body: RecentSubmission[] = await this.getRecent();
@@ -60,14 +61,28 @@ export class EliteService {
                     }
                     const abb = upload.level.mode.game.abb;
                     let channelId;
-                    if (abb == 'smb1' || abb == 'smb2' || abb == 'smb2pal' || abb == 'smbdx' || abb == 'bm') {
-                        channelId = '1186065103880192084'
+                    if (
+                        abb == 'smb1' ||
+                        abb == 'smb2' ||
+                        abb == 'smb2pal' ||
+                        abb == 'smbdx' ||
+                        abb == 'bm'
+                    ) {
+                        // Main Games
+                        channelId = '1186463794201890856'; // smb elite
+                        // channelId = '1186065103880192084'; // test
                     } else {
-                        channelId = '1186439697942192190';
+                        // Custom Games
+                        channelId = '1186463937873588244';
+                        // channelId = '1186439697942192190'; // test
                     }
-                    const channel = discordClient.channels.cache.get(channelId) as TextChannel;
+                    const channel = discordClient.channels.cache.get(
+                        channelId
+                    ) as TextChannel;
                     channel.send(
-                        `**${upload.level.mode.game.name}**\n${this.stringToName(upload.level.name)}\n**${
+                        `**${
+                            upload.level.mode.game.name
+                        }**\n${this.stringToName(upload.level.name)}\n**${
                             upload.score
                                 ? upload.record
                                 : Math.abs(upload.record).toFixed(2)

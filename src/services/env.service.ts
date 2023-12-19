@@ -15,16 +15,4 @@ export class EnvService {
     public get discordToken(): string {
         return process.env.DISCORD_BOT_TOKEN;
     }
-
-    public get twitchUsername(): string {
-        return process.env.TWITCH_USERNAME;
-    }
-
-    public get twitchClientId(): string {
-        return process.env.TWITCH_CLIENT_ID;
-    }
-
-    public get twitchToken(): string {
-        return process.env.TWITCH_ACCESS_TOKEN;
-    }
 }
