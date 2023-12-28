@@ -4,7 +4,9 @@
   "description": "automated record posting in the SMB Elite discord server",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index",
+    "start": "npx tsc && node build/index.js",
+    "go": "build/index.js",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "fmt": "npx prettier . --write"
   },
@@ -19,15 +21,12 @@
   },
   "homepage": "https://github.com/rehtropsmb/mecha-elite#readme",
   "devDependencies": {
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
-    "inversify": "^6.0.2",
-    "node-schedule": "^2.1.1",
-    "reflect-metadata": "^0.2.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "node-schedule": "^2.1.1"
   }
 }
