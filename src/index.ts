@@ -61,14 +61,14 @@ client.login(process.env.DISCORD_BOT_TOKEN);
 client.on(Events.ClientReady, async () => {
     console.log('Discord Client Connected');
     // setup recent records list
-    const body: any[] = await getRecent();
-    let curr_records = body.map((value) => value.id);
+    let curr_records: RecentSubmission[] = await getRecent();
     console.log('Pulled current records from smb-elite');
     const schedule = require('node-schedule');
     schedule.scheduleJob('*/1 * * * *', async () => {
         const body: RecentSubmission[] = await getRecent();
+        const proofs: string[] = [];
         for (const upload of body) {
-            if (curr_records.includes(upload.id)) {
+            if (curr_records.some((element) => element.id === upload.id)) {
                 continue;
             }
             const body = {
@@ -137,9 +137,22 @@ client.on(Events.ClientReady, async () => {
                 const record = upload.score
                     ? upload.record
                     : Math.abs(upload.record).toFixed(2);
-                const recordLink = upload.proof
+                let recordLink = upload.proof
                     .replace('//twitter.com', '//fxtwitter.com')
                     .replace('//x.com', '//fixupx.com');
+                let dup = '';
+
+                if (
+                    proofs.includes(upload.proof) ||
+                    curr_records.some(
+                        (element: RecentSubmission) =>
+                            element.proof === upload.proof
+                    )
+                ) {
+                    recordLink = `<${recordLink}>`;
+                    dup = `[*Duplicate Video Submission*]`;
+                }
+                proofs.push(upload.proof);
                 const username = upload.profile.username;
                 const usernameLink = `https://www.smbelite.net/user/${upload.profile.id}`;
                 const leaderboardLink = `https://smbelite.net/games/${
@@ -148,14 +161,14 @@ client.on(Events.ClientReady, async () => {
                     upload.level.name
                 }`;
                 channel.send(
-                    `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)`
+                    `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)\n${dup}`
                 );
                 console.log(`${stageName} | ${record} | ${username}`);
                 break;
             }
         }
 
-        curr_records = body.map((value) => value.id);
+        curr_records = body;
     });
     console.log('Activated Schedule');
 });

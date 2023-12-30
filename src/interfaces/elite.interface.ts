@@ -8,6 +8,7 @@ export interface BoardSubmission {
     obsolete: boolean;
     platform: any;
     profile: EliteProfile;
+    proof: string;
     record: number;
     region: any;
     report: any;
