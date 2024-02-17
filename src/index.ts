@@ -62,12 +62,13 @@ client.on(Events.ClientReady, async () => {
     console.log('Discord Client Connected');
     // setup recent records list
     let curr_records: RecentSubmission[] = await getRecent();
+    let curr_proofs: string[] = [];
     console.log('Pulled current records from smb-elite');
     const schedule = require('node-schedule');
-    schedule.scheduleJob('*/1 * * * *', async () => {
+    schedule.scheduleJob('*/2 * * * *', async () => {
         const body: RecentSubmission[] = await getRecent();
-        const proofs: string[] = [];
         for (const upload of body) {
+            // skip upload if not new
             if (curr_records.some((element) => element.id === upload.id)) {
                 continue;
             }
@@ -91,7 +92,10 @@ client.on(Events.ClientReady, async () => {
             );
             const data: BoardSubmission[] =
                 (await response.json()) as BoardSubmission[];
+
+            // loop thru all submissions on stage board
             for (const submission of data) {
+                // if upload and submission aren't the same, skip
                 if (upload.id !== submission.id) {
                     continue;
                 }
@@ -109,7 +113,8 @@ client.on(Events.ClientReady, async () => {
                     case 'smb1':
                     case 'smb2':
                     case 'smb2pal':
-                    case 'smbdx': {
+                    case 'smbdx':
+                    case 'smbjr': {
                         // Main Games
                         channelId = '1186463794201890856'; // smb elite
                         // channelId = '1186065103880192084'; // test
@@ -142,17 +147,10 @@ client.on(Events.ClientReady, async () => {
                     .replace('//x.com', '//fixupx.com');
                 let dup = '';
 
-                if (
-                    proofs.includes(upload.proof) ||
-                    curr_records.some(
-                        (element: RecentSubmission) =>
-                            element.proof === upload.proof
-                    )
-                ) {
+                if (curr_proofs.includes(upload.proof)) {
                     recordLink = `<${recordLink}>`;
                     dup = `[*Duplicate Video Submission*]`;
                 }
-                proofs.push(upload.proof);
                 const username = upload.profile.username;
                 const usernameLink = `https://www.smbelite.net/user/${upload.profile.id}`;
                 const leaderboardLink = `https://smbelite.net/games/${
@@ -163,7 +161,15 @@ client.on(Events.ClientReady, async () => {
                 channel.send(
                     `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)\n${dup}`
                 );
-                console.log(`${stageName} | ${record} | ${username}`);
+                console.log(
+                    `${stageName} | ${record} | ${username} | ${upload.id}`
+                );
+
+                // log proof to track future duplicates
+                curr_proofs.push(upload.proof);
+                while (curr_proofs.length > 10) {
+                    curr_proofs.shift();
+                }
                 break;
             }
         }
