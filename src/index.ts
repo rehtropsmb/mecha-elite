@@ -120,16 +120,27 @@ client.on(Events.ClientReady, async () => {
                         // channelId = '1186065103880192084'; // test
                         break;
                     }
-                    case 'bm': {
-                        // Banana Mania
+                    case 'bm': 
+                    // case 'bbhd': 
+                    {
+                        // Banana Era
                         channelId = '1188903356496871535'; // smb elite
                         // channelId = '1186065103880192084'; // test
                         break;
                     }
-                    default: {
+                    case '651':
+                    case 'gaiden': 
+                    case 'launch': 
+                    case 'invasion': 
+                    case 'stardust': 
+                    case 'smbp': {
                         // Custom Games
-                        channelId = '1186463937873588244';
+                        channelId = '1186463937873588244'; // smb elite
                         // channelId = '1186065103880192084'; // test
+                        break;
+                    }
+                    default: {
+                        console.log(`Game ${abb} not supported!`);
                         break;
                     }
                 }
