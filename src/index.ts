@@ -114,7 +114,8 @@ client.on(Events.ClientReady, async () => {
                     case 'smb2':
                     case 'smb2pal':
                     case 'smbdx':
-                    case 'smbjr': {
+                    // case 'smbjr': 
+                    {
                         // Main Games
                         channelId = '1186463794201890856'; // smb elite
                         // channelId = '1186065103880192084'; // test
