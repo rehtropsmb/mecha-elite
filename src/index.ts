@@ -108,7 +108,7 @@ client.on(Events.ClientReady, async () => {
                     break;
                 }
                 const abb = upload.level.mode.game.abb;
-                let channelId;
+                let channelId = '';
                 switch (abb) {
                     case 'smb1':
                     case 'smb2':
@@ -145,37 +145,40 @@ client.on(Events.ClientReady, async () => {
                         break;
                     }
                 }
-                const channel = client.channels.cache.get(
-                    channelId
-                ) as TextChannel;
-
-                const gameName = upload.level.mode.game.name;
-                const stageName = stringToName(upload.level.name);
-                const record = upload.score
-                    ? upload.record
-                    : Math.abs(upload.record).toFixed(2);
-                let recordLink = upload.proof
-                    .replace('//twitter.com', '//fxtwitter.com')
-                    .replace('//x.com', '//fixupx.com');
-                let dup = '';
-
-                if (curr_proofs.includes(upload.proof)) {
-                    recordLink = `<${recordLink}>`;
-                    dup = `[*Duplicate Video Submission*]`;
+                
+                if (channelId) {
+                    const channel = client.channels.cache.get(
+                        channelId
+                    ) as TextChannel;
+    
+                    const gameName = upload.level.mode.game.name;
+                    const stageName = stringToName(upload.level.name);
+                    const record = upload.score
+                        ? upload.record
+                        : Math.abs(upload.record).toFixed(2);
+                    let recordLink = upload.proof
+                        .replace('//twitter.com', '//fxtwitter.com')
+                        .replace('//x.com', '//fixupx.com');
+                    let dup = '';
+    
+                    if (curr_proofs.includes(upload.proof)) {
+                        recordLink = `<${recordLink}>`;
+                        dup = `[*Duplicate Video Submission*]`;
+                    }
+                    const username = upload.profile.username;
+                    const usernameLink = `https://www.smbelite.net/user/${upload.profile.id}`;
+                    const leaderboardLink = `https://smbelite.net/games/${
+                        upload.level.mode.game.abb
+                    }/${upload.level.category}/${upload.score ? 'score' : 'time'}/${
+                        upload.level.name
+                    }`;
+                    channel.send(
+                        `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)\n${dup}`
+                    );
+                    console.log(
+                        `${stageName} | ${record} | ${username} | ${upload.id}`
+                    );
                 }
-                const username = upload.profile.username;
-                const usernameLink = `https://www.smbelite.net/user/${upload.profile.id}`;
-                const leaderboardLink = `https://smbelite.net/games/${
-                    upload.level.mode.game.abb
-                }/${upload.level.category}/${upload.score ? 'score' : 'time'}/${
-                    upload.level.name
-                }`;
-                channel.send(
-                    `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)\n${dup}`
-                );
-                console.log(
-                    `${stageName} | ${record} | ${username} | ${upload.id}`
-                );
 
                 // log proof to track future duplicates
                 curr_proofs.push(upload.proof);
