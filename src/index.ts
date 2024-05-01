@@ -122,7 +122,7 @@ client.on(Events.ClientReady, async () => {
                         break;
                     }
                     case 'bm': 
-                    // case 'bbhd': 
+                    case 'bbhd': 
                     {
                         // Banana Era
                         channelId = '1188903356496871535'; // smb elite
@@ -134,7 +134,9 @@ client.on(Events.ClientReady, async () => {
                     case 'launch': 
                     case 'invasion': 
                     case 'stardust': 
-                    case 'smbp': {
+                    case 'smbp': 
+                    case 'bbsbv4': 
+                    {
                         // Custom Games
                         channelId = '1186463937873588244'; // smb elite
                         // channelId = '1186065103880192084'; // test
