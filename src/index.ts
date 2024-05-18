@@ -136,6 +136,7 @@ client.on(Events.ClientReady, async () => {
                     case 'stardust': 
                     case 'smbp': 
                     case 'bbsbv4': 
+                    case 'hgs':
                     {
                         // Custom Games
                         channelId = '1186463937873588244'; // smb elite
