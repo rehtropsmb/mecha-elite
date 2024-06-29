@@ -159,7 +159,7 @@ client.on(Events.ClientReady, async () => {
                     const stageName = stringToName(upload.level.name);
                     const record = upload.score
                         ? upload.record
-                        : Math.abs(upload.record).toFixed(2);
+                        : (abb === 'br' ? Math.abs(upload.record).toFixed(3) : Math.abs(upload.record).toFixed(2));
                     let recordLink = upload.proof
                         .replace('//twitter.com', '//fxtwitter.com')
                         .replace('//x.com', '//fixupx.com');
