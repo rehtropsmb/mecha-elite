@@ -114,6 +114,7 @@ client.on(Events.ClientReady, async () => {
                     case 'smb2':
                     case 'smb2pal':
                     case 'smbdx':
+                    case 'smba':
                     // case 'smbjr': 
                     {
                         // Main Games
