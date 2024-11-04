@@ -1,4 +1,9 @@
-import { Client, Events, IntentsBitField, TextChannel } from 'discord.js';
+import {
+    Client,
+    Events,
+    IntentsBitField,
+    TextChannel,
+} from 'discord.js';
 import * as dotenv from 'dotenv';
 import {
     BoardSubmission,
@@ -114,31 +119,29 @@ client.on(Events.ClientReady, async () => {
                     case 'smb2':
                     case 'smb2pal':
                     case 'smbdx':
-                    // case 'smbjr': 
+                    case 'smba':
                     {
                         // Main Games
                         channelId = '1186463794201890856'; // smb elite
                         // channelId = '1186065103880192084'; // test
                         break;
                     }
-                    case 'bm': 
-                    case 'bbhd': 
-                    case 'br': 
-                    {
+                    case 'bm':
+                    case 'bbhd':
+                    case 'br': {
                         // Banana Era
                         channelId = '1188903356496871535'; // smb elite
                         // channelId = '1186065103880192084'; // test
                         break;
                     }
                     case '651':
-                    case 'gaiden': 
-                    case 'launch': 
-                    case 'invasion': 
-                    case 'stardust': 
-                    case 'smbp': 
-                    case 'bbsbv4': 
-                    case 'hgs':
-                    {
+                    case 'gaiden':
+                    case 'launch':
+                    case 'invasion':
+                    case 'stardust':
+                    case 'smbp':
+                    case 'bbsbv4':
+                    case 'hgs': {
                         // Custom Games
                         channelId = '1186463937873588244'; // smb elite
                         // channelId = '1186065103880192084'; // test
@@ -149,22 +152,24 @@ client.on(Events.ClientReady, async () => {
                         break;
                     }
                 }
-                
+
                 if (channelId) {
                     const channel = client.channels.cache.get(
                         channelId
                     ) as TextChannel;
-    
+
                     const gameName = upload.level.mode.game.name;
                     const stageName = stringToName(upload.level.name);
                     const record = upload.score
                         ? upload.record
-                        : (abb === 'br' ? Math.abs(upload.record).toFixed(3) : Math.abs(upload.record).toFixed(2));
+                        : abb === 'br'
+                          ? Math.abs(upload.record).toFixed(3)
+                          : Math.abs(upload.record).toFixed(2);
                     let recordLink = upload.proof
                         .replace('//twitter.com', '//fxtwitter.com')
                         .replace('//x.com', '//fixupx.com');
                     let dup = '';
-    
+
                     if (curr_proofs.includes(upload.proof)) {
                         recordLink = `<${recordLink}>`;
                         dup = `[*Duplicate Video Submission*]`;
@@ -173,12 +178,13 @@ client.on(Events.ClientReady, async () => {
                     const usernameLink = `https://www.smbelite.net/user/${upload.profile.id}`;
                     const leaderboardLink = `https://smbelite.net/games/${
                         upload.level.mode.game.abb
-                    }/${upload.level.category}/${upload.score ? 'score' : 'time'}/${
-                        upload.level.name
-                    }`;
-                    channel.send(
+                    }/${upload.level.category}/${
+                        upload.score ? 'score' : 'time'
+                    }/${upload.level.name}`;
+                    const msg = await channel.send(
                         `**${gameName}**\n${stageName}\n**[${record}](${recordLink})** by [${username}](<${usernameLink}>) | **${medal}** on [SMB Elite](<${leaderboardLink}>)\n${dup}`
                     );
+                    msg.crosspost(); // send to announcement channels
                     console.log(
                         `${stageName} | ${record} | ${username} | ${upload.id}`
                     );
