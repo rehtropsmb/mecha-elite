@@ -97,9 +97,9 @@ client.on(Events.ClientReady, async () => {
                     },
                 }
             );
-            console.log(response)
             const data: BoardSubmission[] =
                 (await response.json()) as BoardSubmission[];
+            console.log(data)
 
             // loop thru all submissions on stage board
             for (const submission of data) {
