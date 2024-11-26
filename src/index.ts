@@ -72,7 +72,6 @@ client.on(Events.ClientReady, async () => {
     const schedule = require('node-schedule');
     schedule.scheduleJob('*/2 * * * *', async () => {
         const body: RecentSubmission[] = await getRecent();
-        console.log('schedule running')
         for (const upload of body) {
             // skip upload if not new
             if (curr_records.some((element) => element.id === upload.id)) {
@@ -83,7 +82,7 @@ client.on(Events.ClientReady, async () => {
                 category_name: upload.level.category,
                 is_score: upload.score,
                 level: upload.level.name,
-                version_key: null,
+                version_key: upload.version?.id ?? null,
             };
 
             const response = await fetch(

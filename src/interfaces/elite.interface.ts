@@ -26,6 +26,7 @@ export interface RecentSubmission {
     tas: boolean;
     level: EliteLevel;
     profile: EliteProfile;
+    version: EliteVersion;
 }
 
 export interface EliteLevel {
@@ -48,4 +49,10 @@ export interface EliteProfile {
     country: string;
     id: number;
     username: string;
+}
+
+export interface EliteVersion {
+    id: number;
+    sequence: number;
+    version: string;
 }
