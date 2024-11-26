@@ -30,7 +30,7 @@ const client = new Client({
 const getRecent = async (): Promise<RecentSubmission[]> => {
     const submissionCount = 10;
     const response = await fetch(
-        `https://dtexopnygapvstzdhwai.supabase.co/rest/v1/submission?select=all_position%2Cid%2Clevel%28category%2Cmode%28game%28abb%2Cname%29%29%2Cname%2Ctimer_type%29%2Cposition%2Cprofile%28country%2Cid%2Cusername%29%2Cproof%2Crecord%2Cscore%2Ctas&offset=0&limit=${submissionCount}&order=id.desc`,
+        `https://dtexopnygapvstzdhwai.supabase.co/rest/v1/submission?select=all_position%2Cid%2Clevel%28category%2Cmode%28game%28abb%2Cname%29%29%2Cname%2Ctimer_type%29%2Cposition%2Cprofile%28country%2Cid%2Cusername%29%2Cproof%2Crecord%2Cscore%2Ctas%2Cversion%28id%2Csequence%2Cversion%29&offset=0&limit=${submissionCount}&order=id.desc`,
         {
             method: 'GET',
             headers: {
