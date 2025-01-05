@@ -131,7 +131,8 @@ client.on(Events.ClientReady, async () => {
                     }
                     case 'bm':
                     case 'bbhd':
-                    case 'br': {
+                    case 'br':
+                    case 'smb2se': {
                         // Banana Era
                         channelId = '1188903356496871535'; // smb elite
                         // channelId = '1186065103880192084'; // test
