@@ -207,21 +207,21 @@ client.on(Events.ClientReady, async () => {
                         if (fuckDread.length > 0) {
                             const diff = upload.score
                                 ? upload.record - fuckDread[0].record
-                                : Math.abs(upload.record).toFixed(2) - Math.abs(fuckDread[0].record).toFixed(2);
+                                : (Math.abs(upload.record) - Math.abs(fuckDread[0].record)).toFixed(2);
                             await midOff.send(`<@269973086051368970> fuck you and your mid ass **${stageName}** [${diff}]`);
                         }
 
                         if (fuckKpen.length > 0) {
                             const diff = upload.score
                                 ? upload.record - fuckKpen[0].record
-                                : Math.abs(upload.record).toFixed(2) - Math.abs(fuckKpen[0].record).toFixed(2);
+                                : (Math.abs(upload.record) - Math.abs(fuckKpen[0].record)).toFixed(2);
                             await midOff.send(`<@204105879132438528> fuck you and your mid ass **${stageName}** [${diff}]`);
                         }
 
                         if (toothy.length > 0) {
                             const diff = upload.score
                                 ? upload.record - toothy[0].record
-                                : Math.abs(upload.record).toFixed(2) - Math.abs(toothy[0].record).toFixed(2);
+                                : (Math.abs(upload.record) - Math.abs(toothy[0].record)).toFixed(2);
                             await midOff.send(`toothy record gone on **${stageName}** [${diff}]`);
                         }
                     }
