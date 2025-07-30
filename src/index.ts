@@ -147,6 +147,7 @@ client.on(Events.ClientReady, async () => {
                     case 'bbsbv4':
                     case 'hgs':
                     case 'rftp':
+                    case 'monkeyed2':
                     case '349': {
                         // Custom Games
                         channelId = '1186463937873588244'; // smb elite
