@@ -195,37 +195,6 @@ client.on(Events.ClientReady, async () => {
                     console.log(
                         `${stageName} | ${record} | ${username} | ${upload.id}`
                     );
-
-                    // fuck you
-                    if (submission.medal === 'platinum') {
-                        const fuckDread = data.filter(s => (s.profile.id == 145 && s.medal == 'silver'));
-                        const fuckKpen = data.filter(s => (s.profile.id == 35 && s.medal == 'silver'));
-                        const toothy = data.filter(s => (s.profile.id == 85 && s.medal == 'silver'));
-                        const midOff = client.channels.cache.get(
-                            '1207968143733948458'
-                        ) as TextChannel;
-
-                        if (fuckDread.length > 0) {
-                            const diff = upload.score
-                                ? upload.record - fuckDread[0].record
-                                : (Math.abs(upload.record) - Math.abs(fuckDread[0].record)).toFixed(2);
-                            await midOff.send(`<@269973086051368970> fuck you and your mid ass **${stageName}** [${diff}]`);
-                        }
-
-                        if (fuckKpen.length > 0) {
-                            const diff = upload.score
-                                ? upload.record - fuckKpen[0].record
-                                : (Math.abs(upload.record) - Math.abs(fuckKpen[0].record)).toFixed(2);
-                            await midOff.send(`<@204105879132438528> fuck you and your mid ass **${stageName}** [${diff}]`);
-                        }
-
-                        if (toothy.length > 0) {
-                            const diff = upload.score
-                                ? upload.record - toothy[0].record
-                                : (Math.abs(upload.record) - Math.abs(toothy[0].record)).toFixed(2);
-                            await midOff.send(`toothy record gone on **${stageName}** [${diff}]`);
-                        }
-                    }
                 }
 
                 // log proof to track future duplicates
