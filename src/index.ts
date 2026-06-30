@@ -151,6 +151,7 @@ client.on(Events.ClientReady, async () => {
                     case 'trremake':
                     case '3x3':
                     case 'arkade':
+                    case 'nll':
                     case '349': {
                         // Custom Games
                         channelId = '1186463937873588244'; // smb elite
