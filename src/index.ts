@@ -84,7 +84,6 @@ client.on(Events.ClientReady, async () => {
                 level: upload.level.name,
                 version_key: upload.version?.id ?? null,
             };
-            console.log(body);
 
             const response = await fetch(
                 'https://dtexopnygapvstzdhwai.supabase.co/rest/v1/rpc/get_chart_submissions',
@@ -99,7 +98,6 @@ client.on(Events.ClientReady, async () => {
             );
             const data: BoardSubmission[] =
                 (await response.json()) as BoardSubmission[];
-            console.log(data)
 
             // loop thru all submissions on stage board
             for (const submission of data) {
